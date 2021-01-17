@@ -6,10 +6,10 @@ Sub utfEncodingCSV()
     Dim csv_file As String
     Dim encoded_csv_file As String
     Dim utf_stream As New ADODB.Stream
-    
-    csv_file = Application.GetOpenFilename("CSV Files(*.csv),*.csv", , "CSVƒtƒ@ƒCƒ‹‚ğ‘I‘ğ")
+
+    csv_file = Application.GetOpenFilename("CSV Files(*.csv),*.csv", , "CSVãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ")
     encoded_csv_file = "encoded_file.csv"
-    
+
     ' Encoding CSV as utf-8
     With utf_stream
         .Open
@@ -19,5 +19,5 @@ Sub utfEncodingCSV()
         .SaveToFile encoded_csv_file
         .Close
     End With
-    
+
 End Sub
