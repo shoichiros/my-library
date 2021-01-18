@@ -10,10 +10,10 @@ Function encodedImportCSV(encode As String)
         MsgBox "キャンセルしました。"
     End If
 
-    Dim utf_stream As New ADODB.Stream
+    Dim encode_stream As New ADODB.Stream
 
     ' Encoding CSV file into text
-    With utf_stream
+    With encode_stream
         .Open
         .LoadFromFile csv_file
         .Type = adTypeText
