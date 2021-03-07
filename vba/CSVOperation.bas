@@ -5,11 +5,11 @@ Option Explicit
 ' HDR=YES is field name header
 ' HDR=NO is field name F1, F2, F3....etc
 
-Function CSVImport(csv_file_path As String)
+Sub CSVImport(csv_file_path As String)
 
     If csv_file_path = "False" Then
         MsgBox "CSV file does not exist."
-        Exit Function
+        Exit Sub
     Else
         Dim ado_connection As New ADODB.connection
         
@@ -24,12 +24,14 @@ Function CSVImport(csv_file_path As String)
         Dim ado_recodeset As New ADODB.Recordset
         
         file_name = Split(csv_file_path, "\")
-        sql = "SELECT *" _
-            & " FROM " & file_name(UBound(file_name))
+        sql = "SELECT ŽåŠÇŽx“X–¼, SUM(‹àŠz)" _
+            & " FROM " & file_name(UBound(file_name)) _
+            & " GROUP BY ŽåŠÇŽx“X–¼ "
         
         Set ado_recodeset = ado_connection.Execute(sql)
         
-        Range("A1").CopyFromRecordset ado_recodeset
+        Cells.Clear
+        Cells(1, 1).CopyFromRecordset ado_recodeset
         
         ado_connection.Close
         
@@ -37,4 +39,4 @@ Function CSVImport(csv_file_path As String)
         Set ado_connection = Nothing
     End If
         
-End Function
+End Sub
