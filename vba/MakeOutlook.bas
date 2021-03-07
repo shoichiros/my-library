@@ -2,7 +2,9 @@ Attribute VB_Name = "MakeOutlook"
 Option Explicit
 
 ' Required "Microsoft Outlook 16.0 Object Library"
-Sub makeOutlookMail(address As String, title As String, subject As String, _
+' is_attach = True is required attach_file_path
+
+Sub makeOutlookMail(file_name As String, address As String, title As String, subject As String, _
 body_contents As String, is_attach As Boolean, Optional attach_file_path As String)
 
     Dim outlook_app As New Outlook.Application
@@ -25,8 +27,8 @@ body_contents As String, is_attach As Boolean, Optional attach_file_path As Stri
                 Exit Sub
             End If
         End If
-        
-        .Display
+        ' Saved Outlook draft
+        .Save
     End With
     
     Set outlook_mail = Nothing
