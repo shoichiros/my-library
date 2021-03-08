@@ -1,24 +1,21 @@
 Attribute VB_Name = "makePDF"
 Option Explicit
 
-' is_make_name_folder = True is file_name folder include
 
-Sub makePDFFile(base_sheet As Worksheet, file_name As String, is_make_name_folder As Boolean)
+Sub makePDFFile(base_sheet_array As Variant, folder_name As String)
     
     Dim main_folder_path As String
+    main_folder_path = ThisWorkbook.Path & "\" & folder_name
     
-    main_folder_path = ThisWorkbook.Path & "\"
+    If Dir(main_folder_path) = "" Then MkDir main_folder_path
     
-    If is_make_name_folder = True Then
-        MkDir main_folder_path & file_name
+    Dim base_sheet As Worksheet
+            
+    For Each base_sheet In Worksheets(base_sheet_array)
         base_sheet.ExportAsFixedFormat Type:=xlTypePDF, _
-            Filename:=main_folder_path & file_name & "\" & file_name & ".pdf", _
+            Filename:=main_folder_path & "\" & base_sheet.Name & ".pdf", _
             Quality:=xlQualityStandard
-    Else
-        base_sheet.ExportAsFixedFormat Type:=xlTypePDF, _
-            Filename:=main_folder_path & file_name & ".pdf", _
-            Quality:=xlQualityStandard
-    End If
+    Next base_sheet
 
 End Sub
 
