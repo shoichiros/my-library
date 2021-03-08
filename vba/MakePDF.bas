@@ -8,7 +8,7 @@ Sub makePDFFile(sheets_name_array As Variant, folder_name As String)
     Dim main_folder_path As String
     main_folder_path = ThisWorkbook.Path & "\" & folder_name
     
-    If Dir(main_folder_path) = "" Then MkDir main_folder_path
+    If Dir(main_folder_path, vbDirectory) = "" Then MkDir main_folder_path
     
     Dim base_sheet As Worksheet
             
