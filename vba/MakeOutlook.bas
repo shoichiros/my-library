@@ -5,7 +5,7 @@ Option Explicit
 ' is_attach = True is required attach_file_path
 
 Sub makeOutlookMail(address As String, subject As String, _
-body_contents As String, is_attach As Boolean, Optional attach_file_path As String)
+body_contents As String, is_attach As Boolean, Optional attach_file_path_array As Variant)
 
     Dim outlook_app As New Outlook.Application
     Dim outlook_mail As Outlook.MailItem
@@ -19,17 +19,23 @@ body_contents As String, is_attach As Boolean, Optional attach_file_path As Stri
         .body = body_contents
         
         If is_attach = True Then
-            If attach_file_path <> "" Then
-                .Attachments.Add attach_file_path, _
-                    olByValue
+            
+            If attach_file_path_array(0) <> "" Then
+                Dim attach_file As Variant
+            
+                For Each attach_file In attach_file_path_array
+                    .Attachments.Add attach_file, olByValue
+                Next attach_file
+                
             Else
-                MsgBox "Does not exist attachments."
+                MsgBox "Does not exist Attachments file"
                 Exit Sub
             End If
+            
         End If
         ' Saved Outlook draft
         .Save
-    End With
+        End With
     
     Set outlook_mail = Nothing
     Set outlook_app = Nothing
