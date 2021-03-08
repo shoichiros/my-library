@@ -24,9 +24,8 @@ Sub CSVImport(csv_file_path As String)
         Dim ado_recodeset As New ADODB.Recordset
         
         file_name = Split(csv_file_path, "\")
-        sql = "SELECT ŽåŠÇŽx“X–¼, SUM(‹àŠz)" _
-            & " FROM " & file_name(UBound(file_name)) _
-            & " GROUP BY ŽåŠÇŽx“X–¼ "
+        sql = "SELECT *" _
+            & " FROM " & file_name(UBound(file_name))
         
         Set ado_recodeset = ado_connection.Execute(sql)
         
