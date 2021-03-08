@@ -4,7 +4,7 @@ Option Explicit
 ' Required "Microsoft Outlook 16.0 Object Library"
 ' is_attach = True is required attach_file_path
 
-Sub makeOutlookMail(address As String, title As String, subject As String, _
+Sub makeOutlookMail(address As String, subject As String, _
 body_contents As String, is_attach As Boolean, Optional attach_file_path As String)
 
     Dim outlook_app As New Outlook.Application
