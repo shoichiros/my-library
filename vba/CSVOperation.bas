@@ -47,7 +47,7 @@ Sub CSVImport(csv_file_path As String, sql As String)
 End Sub
 
 
-Sub outputSheetToCSV(sheet_name As String, folder_name As String)
+Sub outputToCSV(sheet_name As String, folder_name As String)
     
     Dim folder_path As String
     folder_path = ThisWorkbook.Path & "\" & folder_name & "\"
@@ -56,12 +56,9 @@ Sub outputSheetToCSV(sheet_name As String, folder_name As String)
     
     If Dir(folder_path, vbDirectory) = "" Then MkDir folder_path
     
-    With Worksheets(sheet_name)
-        .Copy
-        .SaveAs Filename:=folder_path & sheet_name & ".csv", FileFormat:=xlCSV
-    End With
-    
-    Workbooks(sheet_name & ".csv").Close
+    Worksheets(sheet_name).Copy
+    ActiveSheet.SaveAs Filename:=folder_path & sheet_name & ".csv", FileFormat:=xlCSV
+    ActiveSheet.Close
     
     Application.ScreenUpdating = True
     
