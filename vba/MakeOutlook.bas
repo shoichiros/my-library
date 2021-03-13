@@ -1,11 +1,10 @@
 Attribute VB_Name = "MakeOutlook"
 Option Explicit
-
 ' Required "Microsoft Outlook 16.0 Object Library"
-' is_attach = True is required attach_file_path
+' is_attach = True is required attach_file_path_array
 
 Sub makeOutlookMail(address As String, subject As String, _
-body_contents As String, is_attach As Boolean, Optional attach_file_path_array As Variant)
+    body_contents As String, is_attach As Boolean, Optional attach_file_path_array As Variant)
 
     Dim outlook_app As New Outlook.Application
     Dim outlook_mail As Outlook.MailItem
@@ -20,7 +19,7 @@ body_contents As String, is_attach As Boolean, Optional attach_file_path_array A
         
         If is_attach = True Then
             
-            If attach_file_path_array(0) <> "" Then
+            If Dir(attach_file_path_array(0)) <> "" Then
                 Dim attach_file As Variant
             
                 For Each attach_file In attach_file_path_array
@@ -35,9 +34,10 @@ body_contents As String, is_attach As Boolean, Optional attach_file_path_array A
         End If
         ' Saved Outlook draft
         .Save
-        End With
+    End With
     
     Set outlook_mail = Nothing
     Set outlook_app = Nothing
     
 End Sub
+
