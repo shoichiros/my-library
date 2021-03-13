@@ -3,10 +3,10 @@ Option Explicit
 
 ' Args is sheets_name_array = Array("sheet_name1", "sheet_name2")
 
-Sub makePDFFile(sheets_name_array As Variant, folder_name As String)
+Sub makePDFFile(sheets_name_array As Variant, output_folder_name As String)
     
     Dim main_folder_path As String
-    main_folder_path = ThisWorkbook.Path & "\" & folder_name
+    main_folder_path = ThisWorkbook.Path & "\" & output_folder_name
     
     If Dir(main_folder_path, vbDirectory) = "" Then MkDir main_folder_path
     
@@ -17,6 +17,20 @@ Sub makePDFFile(sheets_name_array As Variant, folder_name As String)
             Filename:=main_folder_path & "\" & base_sheet.Name & ".pdf", _
             Quality:=xlQualityStandard
     Next base_sheet
+
+End Sub
+
+
+Sub makePDFFileAll(output_file_name As String, output_folder_name As String)
+    
+    Dim main_folder_path As String
+    main_folder_path = ThisWorkbook.Path & "\" & output_folder_name
+    
+    If Dir(main_folder_path, vbDirectory) = "" Then MkDir main_folder_path
+    
+    ThisWorkbook.ExportAsFixedFormat Type:=xlTypePDF, _
+        Filename:=main_folder_path & "\" & output_file_name & ".pdf", _
+        Quality:=xlQualityStandard
 
 End Sub
 
