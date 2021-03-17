@@ -13,7 +13,12 @@ Option Explicit
 '     sql = "SELECT *" _
 '        & " FROM " & file_name
 
-Function CSVImport(csv_file_path As String, sql As String)
+Sub CSVImport(csv_file_path As String, sql As String)
+
+    If Dir(csv_file_path) = "" Then
+        MsgBox "CSV file does not exist."
+        Exit Sub
+    Exit Sub
     
     Dim file_name As String
     Dim folder_path As String
@@ -32,21 +37,15 @@ Function CSVImport(csv_file_path As String, sql As String)
     Dim ado_recodeset As New ADODB.Recordset
     Set ado_recodeset = ado_connection.Execute(sql)
         
-    Dim lists As Variant
-    lists = ado_recodeset.GetRows
-    
-    If IsArray(lists) = True Then
-        CSVImport = WorksheetFunction.Transpose(lists)
-    Else
-        CSVImport = Empty
-    End If
-    
+    Cells.Clear
+    Cells(1, 1).CopyFromRecordset ado_recodeset
+        
     ado_connection.Close
         
     Set ado_recodeset = Nothing
     Set ado_connection = Nothing
         
-End Function
+End Sub
 
 
 Sub outputToCSV(sheet_name As String, folder_name As String)
@@ -59,8 +58,8 @@ Sub outputToCSV(sheet_name As String, folder_name As String)
     If Dir(folder_path, vbDirectory) = "" Then MkDir folder_path
     
     Worksheets(sheet_name).Copy
-    ActiveSheet.SaveAs Filename:=folder_path & sheet_name & ".csv", FileFormat:=xlCSV
-    ActiveSheet.Close
+    ActiveWorkbook.SaveAs Filename:=folder_path & sheet_name & ".csv", FileFormat:=xlCSV
+    ActiveWorkbook.Close
     
     Application.ScreenUpdating = True
     
