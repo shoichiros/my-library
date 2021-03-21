@@ -6,19 +6,18 @@ Option Explicit
 ' HDR=NO is field name F1, F2, F3....etc
 '
 ' ## For example ##
+'     Dim csv_file_path as String
 '     Dim sql As String
 '     Dim file_name As String
 '
+'     csv_file_path = Application.GetOpenFilename("CSV(*.csv), *.csv", , "csv")
 '     file_name = Dir(csv_file_path)
 '     sql = "SELECT *" _
 '        & " FROM " & file_name
 
-Sub CSVImport(csv_file_path As String, sql As String)
+Function CSVImportToArray(csv_file_path As String, sql As String)
 
-    If Dir(csv_file_path) = "" Then
-        MsgBox "CSV file does not exist."
-        Exit Sub
-    Exit Sub
+    If Dir(csv_file_path) = "" Then Exit Function
     
     Dim file_name As String
     Dim folder_path As String
@@ -33,19 +32,15 @@ Sub CSVImport(csv_file_path As String, sql As String)
         .Properties("Extended Properties") = "TEXT;HDR=YES;FMT=Delimited"
         .Open folder_path
     End With
-        
+    
     Dim ado_recodeset As New ADODB.Recordset
     Set ado_recodeset = ado_connection.Execute(sql)
-        
-    Cells.Clear
-    Cells(1, 1).CopyFromRecordset ado_recodeset
-        
+       
+    CSVImportToArray = WorksheetFunction.Transpose(ado_recodeset.GetRows)
+       
     ado_connection.Close
         
-    Set ado_recodeset = Nothing
-    Set ado_connection = Nothing
-        
-End Sub
+End Function
 
 
 Sub outputToCSV(sheet_name As String, folder_name As String)
