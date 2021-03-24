@@ -34,51 +34,72 @@ Function CSVImportToArray(csv_file_path As String, sql As String)
     End With
     
     Dim ado_recodeset As New ADODB.Recordset
-    Dim lists As Variant
-    
     Set ado_recodeset = ado_connection.Execute(sql)
-    lists = ado_recodeset.GetRows
     
-    If IsArray(lists) = True Then
-        CSVImportToArray = WorksheetFunction.Transpose(lists)
-    Else
-        CSVImportToArray = Empty
-    End If
+    CSVImportToArray = ado_recodeset.GetRows
     
     ado_connection.Close
         
 End Function
 
 ' Required Microsoft ActiveX Data Objects 6.1 Library
+' "ADO recordset GetRows" exclusive use CSV export Sub
 
-' ## For example ##
-' base_data is multiple array
-' full path is "C:\Users\username\Documents\test_file.txt"
-' Olso "C:\Users\username\Documents\test_file.csv"
+Sub getRowsExportToCSV(ByVal base_data As Variant)
 
-Sub outputToCSV(ByVal base_data As Variant, ByVal full_path As String)
+    If IsArray(base_data) = False Then Exit Sub
     
     Dim ado_stream As New ADODB.Stream
     Dim i As Long
     Dim j As Long
-    Dim data As String
+    Dim data_row As String
     
     With ado_stream
         .Open
         
-        For i = LBound(base_data) To UBound(base_data)
-            data = ""
+        For i = LBound(base_data, 2) To UBound(base_data, 2)
+            data_row = ""
             
-            For j = LBound(base_data, 2) To UBound(base_data, 2)
-                data = data & base_data(i, j) & ","
+            For j = LBound(base_data) To UBound(base_data)
+                data_row = data_row & base_data(j, i) & ","
             Next j
-        
-            .WriteText Left(data, Len(data) - 1), 1
+            
+            .WriteText Left(data_row, Len(data_row) - 1), adWriteLine
         Next i
         
-        .SaveToFile full_path, 2
+        .SaveToFile "test.csv", adSaveCreateOverWrite
         .Close
     End With
     
 End Sub
 
+' Required Microsoft ActiveX Data Objects 6.1 Library
+' Nomal array or multiple array Sub
+
+Sub arrayExportToCSV(ByVal data_lists As Variant)
+
+    If IsArray(data_lists) = False Then Exit Sub
+
+    Dim ado_stream As New ADODB.Stream
+    Dim i As Long
+    Dim j As Long
+    Dim data_row As String
+    
+    With ado_stream
+        .Open
+        
+        For i = LBound(data_lists) To UBound(data_lists)
+            data_row = ""
+            
+            For j = LBound(data_lists, 2) To UBound(data_lists, 2)
+                data_row = data_row & data_lists(i, j) & ","
+            Next j
+            
+            .WriteText Left(data_row, Len(data_row) - 1), adWriteLine
+        Next i
+        
+        .SaveToFile "test.csv", adSaveCreateOverWrite
+        .Close
+    End With
+
+End Sub
