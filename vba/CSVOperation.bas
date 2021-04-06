@@ -33,10 +33,14 @@ Function CSVImportToArray(csv_file_path As String, sql As String)
         .Open folder_path
     End With
     
-    Dim ado_recodeset As New ADODB.Recordset
-    Set ado_recodeset = ado_connection.Execute(sql)
+    Dim ado_recordset As New ADODB.Recordset
+    Set ado_recordset = ado_connection.Execute(sql)
     
-    CSVImportToArray = ado_recodeset.GetRows
+    If ado_recordset.EOF = True Then
+        CSVImportToArray = Empty
+    Else
+        CSVImportToArray = ado_recordset.GetRows
+    End If
     
     ado_connection.Close
         
