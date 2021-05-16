@@ -180,7 +180,7 @@ Function SheetImportToArray(ByVal sql As String) As Variant
     If ado_recordset.EOF = True Then
         SheetImportToArray = Empty
     Else
-        SheetImportToArray = ado_recordset
+        SheetImportToArray = ado_recordset.GetRows
     End If
     
     ado_connection.Close
