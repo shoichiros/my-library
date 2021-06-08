@@ -198,7 +198,7 @@ End Function
 '         & " FROM [" & sheet_name & "$]"
 '     Set paste_start_range = Sheet1.Range("A2")
 
-Sub sheetImportToSheet(ByVal sql As String, ByVal paste_start_range As Range) As Variant
+Sub sheetImportToSheet(ByVal sql As String, ByVal paste_start_range As Range)
 
     Dim db_path As String
     db_path = ThisWorkbook.Path & "\" & ThisWorkbook.Name
