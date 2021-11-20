@@ -1,19 +1,6 @@
 Attribute VB_Name = "CSVOperation"
 Option Explicit
 
-' Required Microsoft ActiveX Data Objects 6.1 Library
-' HDR=YES is field name header
-' HDR=NO is field name F1, F2, F3....etc
-'
-' # For example
-'     Dim csv_full_path As String
-'     Dim sql As String
-'     Dim file_name As String
-'
-'     csv_full_path = Application.GetOpenFilename("CSV(*.csv), *.csv", , "csv")
-'     file_name = Dir(csv_full_path)
-'     sql = "SELECT *" _
-'        & " FROM [" & file_name & "]"
 
 Function CSVImportToArray(ByVal csv_full_path As String, ByVal sql As String) As Variant
 
@@ -25,7 +12,8 @@ Function CSVImportToArray(ByVal csv_full_path As String, ByVal sql As String) As
     file_name = Dir(csv_full_path)
     folder_path = Replace(csv_full_path, file_name, "")
 
-    Dim ado_connection As New ADODB.connection
+    Dim ado_connection As Object
+    Set ado_connection = CreateObject("ADODB.connection")
 
     With ado_connection
         .Provider = "Microsoft.ACE.OLEDB.16.0"
@@ -33,7 +21,8 @@ Function CSVImportToArray(ByVal csv_full_path As String, ByVal sql As String) As
         .Open folder_path
     End With
 
-    Dim ado_recordset As New ADODB.Recordset
+    Dim ado_recordset As Object
+    Set ado_recordset = CreateObject("ADODB.recordset")
     Set ado_recordset = ado_connection.Execute(sql)
 
     If ado_recordset.EOF = True Then
@@ -108,21 +97,6 @@ Sub arrayExportToCSV(ByVal data_lists As Variant)
 
 End Sub
 
-' Required Microsoft ActiveX Data Objects 6.1 Library
-' HDR=YES is field name header
-' HDR=NO is field name F1, F2, F3....etc
-'
-' # For example
-'     Dim csv_full_path As String
-'     Dim sql As String
-'     Dim file_name As String
-'     Dim paste_start_range As Range
-'
-'     csv_full_path = Application.GetOpenFilename("CSV(*.csv), *.csv", , "csv")
-'     file_name = Dir(csv_full_path)
-'     sql = "SELECT *" _
-'        & " FROM [" & file_name & "]"
-'     Set paste_start_range = Sheet1.Range("A2")
 
 Sub CSVImportToSheet(ByVal csv_full_path As String, _
     ByVal sql As String, ByVal paste_start_range As Range)
@@ -135,7 +109,8 @@ Sub CSVImportToSheet(ByVal csv_full_path As String, _
     file_name = Dir(csv_full_path)
     folder_path = Replace(csv_full_path, file_name, "")
 
-    Dim ado_connection As New ADODB.connection
+    Dim ado_connection As Object
+    Set ado_connection = CreateObject("ADODB.connection")
 
     With ado_connection
         .Provider = "Microsoft.ACE.OLEDB.16.0"
@@ -143,75 +118,8 @@ Sub CSVImportToSheet(ByVal csv_full_path As String, _
         .Open folder_path
     End With
 
-    Dim ado_recordset As New ADODB.Recordset
-    Set ado_recordset = ado_connection.Execute(sql)
-
-    paste_start_range.CopyFromRecordset ado_recordset
-
-    ado_connection.Close
-
-End Sub
-
-' Required Microsoft ActiveX Data Objects 6.1 Library
-' # For example
-'     Dim sheet_name As String
-'     Dim sql As String
-'
-'     sheet_name = Sheet1.Name
-'     sql = "SELECT *" _
-'         & " FROM [" & sheet_name & "$]"
-
-Function sheetImportToArray(ByVal sql As String) As Variant
-
-    Dim db_path As String
-    db_path = ThisWorkbook.Path & "\" & ThisWorkbook.Name
-
-    Dim ado_connection As New ADODB.connection
-
-    With ado_connection
-        .Provider = "Microsoft.ACE.OLEDB.16.0"
-        .Properties("Extended Properties") = "Excel 12.0"
-        .Open db_path
-    End With
-
-    Dim ado_recordset As New ADODB.Recordset
-    Set ado_recordset = ado_connection.Execute(sql)
-
-    If ado_recordset.EOF = True Then
-        SheetImportToArray = Empty
-    Else
-        SheetImportToArray = ado_recordset.GetRows
-    End If
-
-    ado_connection.Close
-
-End Function
-
-' Required Microsoft ActiveX Data Objects 6.1 Library
-' # For example
-'     Dim sheet_name As String
-'     Dim sql As String
-'     Dim paste_start_range As Range
-'
-'     sheet_name = Sheet1.Name
-'     sql = "SELECT *" _
-'         & " FROM [" & sheet_name & "$]"
-'     Set paste_start_range = Sheet1.Range("A2")
-
-Sub sheetImportToSheet(ByVal sql As String, ByVal paste_start_range As Range)
-
-    Dim db_path As String
-    db_path = ThisWorkbook.Path & "\" & ThisWorkbook.Name
-
-    Dim ado_connection As New ADODB.connection
-
-    With ado_connection
-        .Provider = "Microsoft.ACE.OLEDB.16.0"
-        .Properties("Extended Properties") = "Excel 12.0"
-        .Open db_path
-    End With
-
-    Dim ado_recordset As New ADODB.Recordset
+    Dim ado_recordset As Object
+    Set ado_recordset = CreateObject("ADODB.recordset")
     Set ado_recordset = ado_connection.Execute(sql)
 
     paste_start_range.CopyFromRecordset ado_recordset
