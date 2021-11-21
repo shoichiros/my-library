@@ -1,18 +1,17 @@
-Attribute VB_Name = "EncodeImportCSVFunction"
+Attribute VB_Name = "EncodeCSV"
 Option Explicit
 
-Function encodedImportCSV(encode As String)
+
+Function encodedImportCSV(Byval encode As String)
 
     Dim csv_file As String
-    csv_file = Application.GetOpenFilename("CSV Files(*.csv),*.csv", , "CSVファイルを選択")
+    csv_file = Application.GetOpenFilename("CSV Files(*.csv),*.csv", , "csv")
 
-    If csv_file = "" Then
-        MsgBox "キャンセルしました。"
-    End If
+    If csv_file = "" Then: MsgBox "Process canceled.": End
 
-    Dim encode_stream As New ADODB.Stream
+    Dim encode_stream As Object
+    Set encode_stream = CreateObject("ADODB.Stream")
 
-    ' Encoding CSV file into text
     With encode_stream
         .Open
         .LoadFromFile csv_file
