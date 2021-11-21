@@ -2,15 +2,6 @@ Attribute VB_Name = "ExecuteSQL"
 Option Explicit
 
 
-' -------------------------------------------------------------------------------------
-' ## ThisWorkbook SQL execute. ##
-'
-' sql --- SQL code, "UPDATE" "INSERT INTO" is sheet name + $ or Objectsheet.Name + $ or Data Table name
-'
-' -- For Example --
-' sql = "UPDATE [excelSheetName$] SET name = 'Joy' WHERE name = 'j'"
-' sql = "INSERT INTO [dataTableName] VALUES ('joy', 26)"
-
 Sub thisworkbookExecuteSQL(ByVal sql As String)
     
     Dim connection As Object: Set connection = CreateObject("ADODB.Connection")

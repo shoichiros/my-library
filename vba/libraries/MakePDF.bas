@@ -1,14 +1,8 @@
-Attribute VB_Name = "makePDF"
+Attribute VB_Name = "MakePDF"
 Option Explicit
 
 
-' ## makePDFFile ##
-' Some sheet choice, make PDF files
-
-' Args is sheets_name_array = Array("sheet_name1", "sheet_name2")
-' Also sheets_name_array = Array(1, 2)
-
-Sub makePDFFile(sheets_name_array As Variant, output_folder_name As String)
+Sub makePDFFile(Byval sheets_name_array As Variant, Byval output_folder_name As String)
     
     Dim main_folder_path As String
     main_folder_path = ThisWorkbook.Path & "\" & output_folder_name & "\"
@@ -26,10 +20,7 @@ Sub makePDFFile(sheets_name_array As Variant, output_folder_name As String)
 End Sub
 
 
-' ## makePDFFileAll ##
-' ThisWorkbook all sheets, make only one PDF file
-
-Sub makePDFFileAll(output_file_name As String, output_folder_name As String)
+Sub makePDFFileAll(Byval output_file_name As String, Byval output_folder_name As String)
     
     Dim main_folder_path As String
     main_folder_path = ThisWorkbook.Path & "\" & output_folder_name & "\"
@@ -43,14 +34,8 @@ Sub makePDFFileAll(output_file_name As String, output_folder_name As String)
 End Sub
 
 
-' ## makePDFWrapSheets ##
-' From some sheets, make only one PDF file
-
-' Args is sheets_name_array = Array("sheet_name1", "sheet_name2")
-' Also sheets_name_array = Array(1, 2)
-
-Sub makePDFWrapSheets(sheet_name_array As Variant, _
-    output_file_name As String, output_folder_name As String)
+Sub makePDFWrapSheets(Byval sheet_name_array As Variant, _
+    Byval output_file_name As String, Byval output_folder_name As String)
 
     Dim main_folder_path As String
     main_folder_path = ThisWorkbook.Path & "\" & output_folder_name & "\"

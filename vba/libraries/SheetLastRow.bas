@@ -1,8 +1,9 @@
-Attribute VB_Name = "SheetLastRowFunction"
+Attribute VB_Name = "SheetLastRow"
 Option Explicit
 
-Function sheetLastRow(ws As Worksheet, Optional CheckCol As Long = 1) As Long
+
+Function sheetLastRow(byval target_sheet As Worksheet, Optional check_column As Long = 1) As Long
   
-    sheetLastRow = ws.Cells(1, CheckCol).End(xlDown).Row
+    sheetLastRow = target_sheet.Cells(1, check_column).End(xlDown).Row
 
 End Function

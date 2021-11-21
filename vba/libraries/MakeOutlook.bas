@@ -1,10 +1,9 @@
 Attribute VB_Name = "MakeOutlook"
 Option Explicit
-' Required "Microsoft Outlook 16.0 Object Library"
-' is_attach = True is required attach_file_path_array
 
-Sub makeOutlookMail(address As String, subject As String, _
-    body_contents As String, is_attach As Boolean, Optional attach_file_path_array As Variant)
+
+Sub makeOutlookMail(Byval address As String, Byval subject As String, _
+    Byval body As String, Byval is_attach As Boolean, Optional Byval attach_file_path_array As Variant)
 
     Dim outlook_app As New Outlook.Application
     Dim outlook_mail As Outlook.MailItem
@@ -15,7 +14,7 @@ Sub makeOutlookMail(address As String, subject As String, _
         .BodyFormat = olFormatPlain
         .To = address
         .subject = subject
-        .body = body_contents
+        .body = body
         
         If is_attach = True Then
             
