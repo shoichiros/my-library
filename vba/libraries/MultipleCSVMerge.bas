@@ -1,20 +1,12 @@
 Attribute VB_Name = "MultipleCSVMerge"
 Option Explicit
 
-' ## Required Library "Microsoft Scripting Runtime"
-'
-' # For example
-'    Dim target_folder As String
-'    Dim output_folder As String
-'
-'    target_folder = "C:\Users\[username]\Desktop\test\"
-'    output_folder = "C:\Users\[username]\Desktop\"
-'
-'    Call csvFilesMerge(target_folder, output_folder)
 
 Sub csvFilesMerge(ByVal target_folder As String, ByVal output_folder As String)
 
-    Dim file_system As New FileSystemObject
+    Dim file_system As Object
+    Set file_system = CreateObject("Scripting.FileSystemObject")
+
     Dim text_stream As TextStream
     Dim text_stream_output As TextStream
     Dim results As String
