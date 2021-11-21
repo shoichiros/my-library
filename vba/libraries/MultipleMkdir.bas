@@ -4,7 +4,9 @@ Option Explicit
 
 Sub multipleLayersMkDir(ByVal output_folder_path As String)
 
-    Dim file_system As New FileSystemObject
+    Dim file_system As Object
+    Set file_system = CreateObject("Scripting.FileSystemObject")
+
     Dim folder_lists As Variant
     Dim i As Long
     Dim folder_path As String
