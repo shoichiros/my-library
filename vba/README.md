@@ -74,6 +74,10 @@
   - [Library overview](#library-overview-17)
   - [Argument description](#argument-description-17)
   - [For example code](#for-example-code-17)
+- [trimBetweenStringData](#trimbetweenstringdata)
+  - [Library overview](#library-overview-18)
+  - [Argument description](#argument-description-18)
+  - [For example code](#for-example-code-18)
 
 # cellsMerge
 ## Library overview
@@ -538,5 +542,28 @@ ThisWorkbook sheets to all print out. [Code view here](https://github.com/shoich
 ## For example code
 ```vb
 Call wrapPrintOutSheets()
+
+```
+
+
+# trimBetweenStringData
+
+## Library overview
+Trim between the start and end characters from the base string. [Code view here](https://github.com/shoichiros/my-library/blob/master/vba/libraries/TrimData.bas)
+
+## Argument description
+| Argument        | Description                 |
+| --------------- | --------------------------- |
+| base_string     | Trim target string          |
+| trim_start_char | Select trim start character |
+| trim_end_char   | Select trim end character   |
+
+## For example code
+```vb
+Const BASE_STRING As String = "abcdefghijk"
+Const TRIM_START_CHAR As String = "c"
+Const TRIM_END_CHAR As String = "i"
+
+Call trimBetweenStringData(BASE_STRING, TRIM_START_CHAR, TRIM_END_CHAR) ' defgh
 
 ```
