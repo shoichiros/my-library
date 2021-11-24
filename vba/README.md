@@ -78,6 +78,10 @@
   - [Library overview](#library-overview-18)
   - [Argument description](#argument-description-18)
   - [For example code](#for-example-code-18)
+- [importCSVFullData](#importcsvfulldata)
+  - [Library overview](#library-overview-19)
+  - [Argument description](#argument-description-19)
+  - [For example code](#for-example-code-19)
 
 # cellsMerge
 ## Library overview
@@ -565,5 +569,25 @@ Const TRIM_START_CHAR As String = "c"
 Const TRIM_END_CHAR As String = "i"
 
 Call trimBetweenStringData(BASE_STRING, TRIM_START_CHAR, TRIM_END_CHAR) ' defgh
+
+```
+
+
+# importCSVFullData
+
+## Library overview
+Import CSV full Data to ThisWorkbook target sheet. [Code view here](https://github.com/shoichiros/my-library/blob/master/vba/libraries/ImportText.bas)
+
+## Argument description
+| Argument     | Description              |
+| ------------ | ------------------------ |
+| import_sheet | Import destination sheet |
+
+## For example code
+```vb
+Dim import_sheet As Worksheet
+import_sheet = DataSheet
+
+Call importCSVFullData(import_sheet)
 
 ```
