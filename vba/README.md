@@ -257,15 +257,15 @@ After data processing Access table or query with SQL, paste ThisWorkbook table d
 
 ## For example code
 ```vb
-Dim sql As string
-Dim db_path As string
-Dim paste_sheet As string
+Dim sql As String
+Dim db_path As String
+Dim paste_sheet As Worksheet
 Dim is_table As Boolean
 
 ' Olso sql = "SELECT name, age FROM [queryName]"
 sql = "SELECT name, age FROM [dataTable]"
 db_path = "C:\Users\{Your Username}\Desktop\AccessData.accdb"
-paste_sheet = DataSheet
+Set paste_sheet = DataSheet
 is_table = True
 
 Call importAccessToTableSheet(sql, db_path, paste_sheet, is_table)
@@ -586,7 +586,7 @@ Import CSV full Data to ThisWorkbook target sheet. [Code view here](https://gith
 ## For example code
 ```vb
 Dim import_sheet As Worksheet
-import_sheet = DataSheet
+Set import_sheet = DataSheet
 
 Call importCSVFullData(import_sheet)
 
