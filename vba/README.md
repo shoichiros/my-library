@@ -82,6 +82,18 @@
   - [Library overview](#library-overview-19)
   - [Argument description](#argument-description-19)
   - [For example code](#for-example-code-19)
+- [SQLiteImportToArray](#sqliteimporttoarray)
+  - [Library overview](#library-overview-20)
+  - [Argument description](#argument-description-20)
+  - [For example code](#for-example-code-20)
+- [SQLiteImportToSheet](#sqliteimporttosheet)
+  - [Library overview](#library-overview-21)
+  - [Argument description](#argument-description-21)
+  - [For example code](#for-example-code-21)
+- [SQLiteExecution](#sqliteexecution)
+  - [Library overview](#library-overview-22)
+  - [Argument description](#argument-description-22)
+  - [For example code](#for-example-code-22)
 
 # cellsMerge
 ## Library overview
@@ -589,5 +601,89 @@ Dim import_sheet As Worksheet
 Set import_sheet = DataSheet
 
 Call importCSVFullData(import_sheet)
+
+```
+
+
+# SQLiteImportToArray
+
+## Library overview
+Make 2-dimentional arrays from SQLite DB after SQL execution. [Code view here](https://github.com/shoichiros/my-library/blob/master/vba/libraries/SQLiteData.bas)
+
+> <span style="color:red">**WARNING**</span>: Output 2-dimensional arrays is changed Array(Columns, Rows)
+
+## Argument description
+| Argument | Description              |
+| -------- | ------------------------ |
+| db_path  | SQLite DB file full path |
+| sql      | SQL statement            |
+
+## For example code
+```vb
+Dim db_path As String
+Dim sql As String
+Dim data_lists As Variant
+
+db_path = "C:\Users\{username}\Desktop\test.db"
+sql = "SELECT *" _
+    & " FROM testSQLiteTable"
+
+data_lists = SQLiteImportToArray(db_path, sql)
+
+```
+
+
+# SQLiteImportToSheet
+
+## Library overview
+Output data to excel sheet after SQL execution from SQLite DB. [Code view here](https://github.com/shoichiros/my-library/blob/master/vba/libraries/SQLiteData.bas)
+
+> <span style="color:red">**WARNING**</span>: SQLite TEXT type can't not data output. Instead using type VARCHAR(255).
+
+## Argument description
+| Argument          | Description              |
+| ----------------- | ------------------------ |
+| db_path           | SQLite DB file full path |
+| sql               | SQL statement            |
+| paste_start_range | Data paste start range   |
+
+## For example code
+```vb
+Dim db_path As String
+Dim sql As String
+Dim paste_start_range As Range
+
+db_path = "C:\Users\{username}\Desktop\test.db"
+sql = "SELECT *" _
+    & " FROM testSQLiteTable"
+Set paste_start_range = DataSheet.Range("A2")
+
+Call SQLiteImportToSheet(db_path, sql, paste_start_range)
+
+```
+
+
+# SQLiteExecution
+
+## Library overview
+SQLite execution UPDATE, INSERT INTO and DELETE. [Code view here](https://github.com/shoichiros/my-library/blob/master/vba/libraries/SQLiteData.bas)
+
+## Argument description
+| Argument | Description                                |
+| -------- | ------------------------------------------ |
+| db_path  | SQLite DB file full path                   |
+| sql      | SQL statement (UPDATE or INSERT or DELETE) |  |
+
+## For example code
+```vb
+Dim db_path As String
+Dim sql As String
+
+db_path = "C:\Users\{username}\Desktop\test.db"
+sql = "UPDATE testSQLiteTable" _
+    & " SET name = 'test name'" _
+    & " WHERE name = 'test'"
+
+Call SQLiteExecution(db_path, sql)
 
 ```
